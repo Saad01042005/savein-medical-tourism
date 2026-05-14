@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SaveIN.Life — Market Entry Strategy | Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0e0e0e;
+    --paper: #f5f2ec;
+    --accent: #c8401a;
+    --muted: #7a7470;
+    --light: #ede9e1;
+    --card: #ffffff;
+    --border: #ddd9d0;
+    --green: #2a5c45;
+    --tag-bg: #f0ece4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(245,242,236,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); }
+  .nav-links a.active::after {
+    content: '';
+    display: block;
+    height: 1px;
+    background: var(--accent);
+    margin-top: 2px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+  .hero-left {
+    padding: 8rem 4rem 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 28px; height: 1px;
+    background: var(--accent);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.6rem;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    padding: 0.35rem 0.8rem;
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .tag.accent { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .hero-right {
+    padding: 6rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+  }
+  .stat-row {
+    padding: 2.2rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.5s forwards;
+  }
+  .stat-row:nth-child(1) { animation-delay: 0.2s; }
+  .stat-row:nth-child(2) { animation-delay: 0.35s; }
+  .stat-row:nth-child(3) { animation-delay: 0.5s; }
+  .stat-row:nth-child(4) { animation-delay: 0.65s; }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .stat-number span { color: var(--accent); }
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 4rem; }
+  section.bg-paper { background: var(--paper); }
+  section.bg-light { background: var(--light); }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 20px; height: 1px;
+    background: var(--accent);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 3.5rem;
+    max-width: 600px;
+  }
+
+  /* ── OVERVIEW ── */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .overview-text p {
+    color: var(--muted);
+    margin-bottom: 1.4rem;
+    font-size: 1.02rem;
+    line-height: 1.9;
+  }
+  .overview-text p strong { color: var(--ink); font-weight: 500; }
+  .meta-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 4px;
+  }
+  .meta-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .meta-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .meta-key {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .meta-val {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  /* ── MY WORK ── */
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .work-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2.2rem;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .work-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  }
+  .work-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .work-card:hover::before { transform: scaleX(1); }
+  .work-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 1.2rem;
+  }
+  .work-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+  .work-card p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.4rem;
+  }
+  .work-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .work-bullets li {
+    font-size: 0.82rem;
+    color: var(--ink);
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+  }
+  .work-bullets li::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    margin-top: 0.12rem;
+  }
+
+  /* ── FINDINGS ── */
+  .findings-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+  .finding-block {
+    padding: 2.5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+  .finding-block.dark {
+    background: var(--ink);
+    color: #f5f2ec;
+    border-color: var(--ink);
+  }
+  .finding-block.dark .finding-label { color: #c8a090; }
+  .finding-block.dark p { color: #b0aba4; }
+  .finding-block.dark h4 { color: #f5f2ec; }
+  .finding-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+  .finding-block h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  .finding-block p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+  }
+  .insight-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-top: 1rem;
+  }
+  .insight-list li {
+    font-size: 0.88rem;
+    padding: 0.7rem 1rem;
+    background: var(--light);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 3px 3px 0;
+    line-height: 1.5;
+  }
+  .finding-block.dark .insight-list li {
+    background: rgba(255,255,255,0.07);
+  }
+
+  /* ── SKILLS DEMONSTRATED ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  .skill-tile {
+    padding: 1.8rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--card);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-tile:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+  .skill-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.9rem;
+    display: block;
+  }
+  .skill-tile h4 {
+    font-size: 0.92rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+  .skill-tile p {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── PROCESS ── */
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 760px;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 2rem;
+    position: relative;
+  }
+  .step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .step-num {
+    width: 44px; height: 44px;
+    border: 1.5px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    background: var(--card);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .step.active .step-num {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .step-line {
+    flex: 1;
+    width: 1px;
+    background: var(--border);
+    margin: 4px 0;
+    min-height: 40px;
+  }
+  .step:last-child .step-line { display: none; }
+  .step-content {
+    padding: 0 0 3rem;
+  }
+  .step-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    margin-top: 0.7rem;
+  }
+  .step-content p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .step-tags {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    margin-top: 0.8rem;
+  }
+  .step-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.07em;
+    padding: 0.2rem 0.6rem;
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* ── IMPACT STRIP ── */
+  .impact-strip {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 5rem 4rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  .impact-item {}
+  .impact-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .impact-desc {
+    font-size: 0.82rem;
+    color: #8a8580;
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: #8a8580;
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #2a2a2a;
+  }
+  footer p { font-size: 0.82rem; }
+  footer a { color: var(--accent); text-decoration: none; }
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 6rem 2rem 3rem; border-right: none; border-bottom: 1px solid var(--border); }
+    .hero-right { padding: 3rem 2rem; }
+    section { padding: 5rem 2rem; }
+    .overview-grid, .findings-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .work-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .impact-strip { grid-template-columns: repeat(2, 1fr); padding: 4rem 2rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Portfolio · Case Study</span>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#work">My Work</a></li>
+    <li><a href="#findings">Findings</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#skills">Skills</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Consulting · Market Strategy · Product</div>
+    <h1 class="hero-title">
+      Market Entry Strategy for a<br>
+      <em>Medical Tourism</em><br>
+      Platform
+    </h1>
+    <p class="hero-desc">
+      End-to-end business strategy research for SaveIN.Life — a Medical Value Travel Facilitator (MVTF) targeting international patients seeking treatment in India. Delivered under 180 Degrees Consulting, NSUT.
+    </p>
+    <div class="hero-tags">
+      <span class="tag accent">180 Degrees Consulting</span>
+      <span class="tag">Market Research</span>
+      <span class="tag">Competitive Analysis</span>
+      <span class="tag">Business Strategy</span>
+      <span class="tag">Legal Review</span>
+      <span class="tag">Product Thinking</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-row">
+      <span class="stat-number">$286<span>B</span></span>
+      <span class="stat-label">Global medical tourism market size projected by 2030</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-number">10<span>+</span></span>
+      <span class="stat-label">Direct competitors analysed in-depth (national + international)</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-number">4</span>
+      <span class="stat-label">Deliverables produced: Competitor Analysis, Legal Review, Business Model, Sales Funnel</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-number">56<span>%</span></span>
+      <span class="stat-label">MVTF failure rate — identified key survival factors from data</span>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<section id="overview" class="bg-paper">
+  <div class="section-label">01 · Overview</div>
+  <h2 class="section-title">What this project was about</h2>
+  <div class="overview-grid">
+    <div class="overview-text reveal">
+      <p>
+        <strong>SaveIN.Life</strong> is an early-stage startup looking to enter India's fragmented medical tourism facilitation market. Our team at 180 Degrees Consulting, NSUT was engaged to build the strategic foundation for their market entry — from understanding the competitive landscape to designing a viable, differentiated business model.
+      </p>
+      <p>
+        The Indian medical tourism market is unique: <strong>no single player holds dominance</strong>, the regulatory environment is evolving rapidly, and patient expectations are shifting toward end-to-end digital experiences. This presented both an opportunity and a challenge.
+      </p>
+      <p>
+        The core question we answered: <strong>How should SaveIN.Life position itself, what services should it prioritise, and how does it build a defensible business model in a 56% failure-rate market?</strong>
+      </p>
+      <p>
+        Our research spanned primary analysis of 10+ national MVTFs, 5 international players, India's legal and accreditation landscape, government schemes, and customer acquisition strategies — synthesised into a clear, actionable business blueprint.
+      </p>
+    </div>
+    <div class="reveal">
+      <div class="meta-card">
+        <div class="meta-item">
+          <span class="meta-key">Client</span>
+          <span class="meta-val">SaveIN.Life (Early-stage startup)</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Organisation</span>
+          <span class="meta-val">180 Degrees Consulting, NSUT</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Domain</span>
+          <span class="meta-val">Healthcare · Medical Tourism · HealthTech</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Type of Work</span>
+          <span class="meta-val">Market Research, Strategy, Business Model Design</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Deliverables</span>
+          <span class="meta-val">4 research reports + business model framework</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Confidentiality</span>
+          <span class="meta-val">Insights shared; proprietary data redacted</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MY WORK -->
+<section id="work" class="bg-light">
+  <div class="section-label">02 · Deliverables</div>
+  <h2 class="section-title">What I researched & built</h2>
+  <div class="work-grid">
+
+    <div class="work-card reveal">
+      <div class="work-num">01 / 04</div>
+      <h3>Competitor Analysis Report</h3>
+      <p>Comprehensive benchmarking of the medical tourism facilitation space across India and globally — services, revenue models, pricing, patient journey, and digital presence.</p>
+      <ul class="work-bullets">
+        <li>Profiled 10 national MVTFs (HealthTrip, Vaidam, MediGence, etc.)</li>
+        <li>Analysed 5 international players for benchmarking</li>
+        <li>Mapped revenue streams, treatment specialties & customer channels</li>
+        <li>Identified state-wise healthcare rankings using NITI Aayog data</li>
+        <li>Charted top MVTFs per city (Delhi, Mumbai, Bangalore, etc.)</li>
+      </ul>
+    </div>
+
+    <div class="work-card reveal">
+      <div class="work-num">02 / 04</div>
+      <h3>Legal & Regulatory Review</h3>
+      <p>Deep-dive into India's regulatory environment for hospitals and medical value travel facilitators — accreditations, government schemes, stakeholder positions, and future regulations.</p>
+      <ul class="work-bullets">
+        <li>Mapped NABH & JCI accreditation processes end-to-end</li>
+        <li>Reviewed MVTF empanelment criteria under NABH</li>
+        <li>Analysed 9 key government stakeholders and their initiatives</li>
+        <li>Evaluated government schemes (MDA, WMTPC, CBSP)</li>
+        <li>Forecasted 9 possible future regulatory shifts</li>
+      </ul>
+    </div>
+
+    <div class="work-card reveal">
+      <div class="work-num">03 / 04</div>
+      <h3>Recommended Business Model</h3>
+      <p>Full business model canvas design for SaveIN.Life — value propositions, revenue streams, customer segments, key partnerships, cost structure, and prioritised product roadmap.</p>
+      <ul class="work-bullets">
+        <li>Designed 14 service offerings with priority tiers [1/2/3]</li>
+        <li>Identified 7 revenue streams with commission structures</li>
+        <li>Defined 4 customer employee archetypes (Educator, Organiser, Bridge, Advocate)</li>
+        <li>Mapped key partnerships: hospitals, travel, legal, tech, govt</li>
+        <li>Structured fixed vs variable cost framework</li>
+      </ul>
+    </div>
+
+    <div class="work-card reveal">
+      <div class="work-num">04 / 04</div>
+      <h3>Sales Funnel Strategy</h3>
+      <p>End-to-end customer acquisition and conversion strategy — from awareness through loyalty, with specific tactics for each stage of the medical tourist decision journey.</p>
+      <ul class="work-bullets">
+        <li>Designed 4-stage funnel: Awareness → Interest → Consideration → Conversion</li>
+        <li>Proposed SEO, paid ads, and lab partnership channels</li>
+        <li>Designed lead magnet strategy (free reports, guides, newsletters)</li>
+        <li>Outlined loyalty & referral program with reward points</li>
+        <li>Recommended webinar + testimonial-led engagement strategy</li>
+      </ul>
+    </div>
+
+    <div class="work-card reveal">
+      <div class="work-num">05 / 05</div>
+      <h3>Market Insights & Data Analysis</h3>
+      <p>Quantitative analysis of the MVTF landscape using startup lifecycle data, funding patterns, and market statistics to surface evidence-based strategic recommendations.</p>
+      <ul class="work-bullets">
+        <li>Analysed 94 MVTFs — 53 active, 41 dead — for survival patterns</li>
+        <li>Charted MVTF failure rates vs years of operation</li>
+        <li>Mapped funded vs unfunded startup performance</li>
+        <li>Identified Delhi NCT as highest-density hub (11 active MVTFs)</li>
+        <li>Benchmarked top treatment specialties & service gaps</li>
+      </ul>
+    </div>
+
+    <div class="work-card reveal" style="background: var(--ink); border-color: var(--ink);">
+      <div class="work-num" style="color: #666;">Key Insight</div>
+      <h3 style="color: #f5f2ec; font-family: 'Playfair Display', serif;">The market has no dominant player. The opportunity window is now.</h3>
+      <p style="color: #8a8580; margin-top: 1rem; font-size: 0.9rem; line-height: 1.8;">No MVTF holds more than ~5% market share. The top 3 funded players (HealthTrip, Vaidam, Health Konnect) collectively serve under 15% of annual inbound medical tourists. For a tech-first, patient-centric entrant with strong unit economics, this fragmentation is an advantage.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- FINDINGS -->
+<section id="findings" class="bg-paper">
+  <div class="section-label">03 · Key Findings</div>
+  <h2 class="section-title">What the research revealed</h2>
+  <div class="findings-layout">
+
+    <div class="finding-block reveal">
+      <div class="finding-label">Competitive Landscape</div>
+      <h4>The market is wide open — but brutal for the unprepared</h4>
+      <p>Of 94 MVTFs tracked, 56% have been deadpooled. The average lifespan of failed MVTFs is 9 years — suggesting many entered without sustainable models, not that the market is inherently unviable.</p>
+      <ul class="insight-list">
+        <li>Funded startups average 9.7 years of operation vs 7.1 for unfunded</li>
+        <li>Primary packages (travel + accommodation + treatment) are the core revenue driver across all top players</li>
+        <li>Only 2 of top 10 national MVTFs have a mobile app — significant gap</li>
+        <li>Patient reviews & testimonials are the #1 marketing channel used</li>
+      </ul>
+    </div>
+
+    <div class="finding-block dark reveal">
+      <div class="finding-label">Strategic Recommendation</div>
+      <h4>Three things SaveIN.Life must get right from day one</h4>
+      <p>Based on failure patterns and competitor gaps, survival and scale depend on getting these three fundamentals right before anything else.</p>
+      <ul class="insight-list">
+        <li><strong style="color:#f5f2ec;">Dedicated Patient Manager</strong> — almost no competitor offers this as a USP; it's the clearest trust signal for international patients</li>
+        <li><strong style="color:#f5f2ec;">Transparent pricing & free first consultation</strong> — drives top-of-funnel conversion where most MVTFs fall short</li>
+        <li><strong style="color:#f5f2ec;">Commission-first model over direct charging</strong> — reduces patient friction while building hospital relationships</li>
+      </ul>
+    </div>
+
+    <div class="finding-block reveal">
+      <div class="finding-label">Regulatory Environment</div>
+      <h4>The government is actively building tailwinds for MVTFs</h4>
+      <p>India's "Heal in India" initiative, e-Medical Visa expansion to 160+ countries, and the NABH MVTF empanelment programme all signal strong government intent to formalise and grow this sector.</p>
+      <ul class="insight-list">
+        <li>NABH MVTF empanelment launched in 2016 — only a handful of players have it, making it a strong differentiator</li>
+        <li>Ministry of Tourism offers up to ₹25 lakh in financial support for qualifying medical tourism promotions</li>
+        <li>NABH accreditation likely to become mandatory — early compliance is a moat</li>
+      </ul>
+    </div>
+
+    <div class="finding-block dark reveal">
+      <div class="finding-label">Customer Insight</div>
+      <h4>68% of patients are from Bangladesh — the target segment is closer than it seems</h4>
+      <p>The dominant inbound markets are neighbouring countries, not Western nations. This shapes language, logistics, and marketing strategy significantly.</p>
+      <ul class="insight-list">
+        <li>Bangladesh, Maldives, Myanmar, Oman & Yemen are top source markets</li>
+        <li>40–60 age group dominates for cardiac & orthopaedic procedures</li>
+        <li>18–30 age cohort is the fastest-growing segment (fertility, dental, cosmetic)</li>
+        <li>Email + WhatsApp are the dominant patient communication channels</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- IMPACT STRIP -->
+<div class="impact-strip">
+  <div class="impact-item reveal">
+    <div class="impact-num">94</div>
+    <div class="impact-desc">MVTFs tracked and analysed for market survival patterns</div>
+  </div>
+  <div class="impact-item reveal">
+    <div class="impact-num">14</div>
+    <div class="impact-desc">Core service offerings designed with priority framework</div>
+  </div>
+  <div class="impact-item reveal">
+    <div class="impact-num">9</div>
+    <div class="impact-desc">Government stakeholders mapped with strategic stances</div>
+  </div>
+  <div class="impact-item reveal">
+    <div class="impact-num">4</div>
+    <div class="impact-desc">Research reports delivered across strategy, legal, product & sales</div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<section id="process" class="bg-light">
+  <div class="section-label">04 · Process</div>
+  <h2 class="section-title">How we approached this</h2>
+  <div class="process-steps">
+
+    <div class="step active reveal">
+      <div class="step-left">
+        <div class="step-num">01</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <h4>Problem Framing & Scoping</h4>
+        <p>Defined the key business questions: What does the competitive landscape look like? What are the regulatory constraints? What business model would be viable and differentiated? Structured the entire engagement around answering these sequentially.</p>
+        <div class="step-tags">
+          <span class="step-tag">Scoping</span>
+          <span class="step-tag">Stakeholder Alignment</span>
+          <span class="step-tag">Research Design</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step reveal">
+      <div class="step-left">
+        <div class="step-num">02</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <h4>Primary & Secondary Research</h4>
+        <p>Conducted deep research across 10+ national competitors and 5 international MVTFs using public data sources, Tracxn reports, government publications, and company websites. Built structured datasets for quantitative analysis.</p>
+        <div class="step-tags">
+          <span class="step-tag">Desk Research</span>
+          <span class="step-tag">Data Collection</span>
+          <span class="step-tag">Tracxn</span>
+          <span class="step-tag">NITI Aayog</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step reveal">
+      <div class="step-left">
+        <div class="step-num">03</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <h4>Quantitative Analysis & Pattern Recognition</h4>
+        <p>Analysed startup lifecycle data, revenue model patterns, geographic distribution, funding correlation, and service coverage to extract statistically-grounded insights about what makes MVTFs succeed or fail.</p>
+        <div class="step-tags">
+          <span class="step-tag">Data Analysis</span>
+          <span class="step-tag">Pattern Recognition</span>
+          <span class="step-tag">Benchmarking</span>
+          <span class="step-tag">Visualisation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step reveal">
+      <div class="step-left">
+        <div class="step-num">04</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <h4>Legal & Regulatory Mapping</h4>
+        <p>Mapped India's regulatory landscape for MVTFs — NABH accreditation, JCI standards, government schemes, key ministry positions, and forecasted upcoming regulations. Translated legal complexity into clear strategic implications.</p>
+        <div class="step-tags">
+          <span class="step-tag">Regulatory Analysis</span>
+          <span class="step-tag">NABH</span>
+          <span class="step-tag">Policy Research</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step reveal">
+      <div class="step-left">
+        <div class="step-num">05</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <h4>Business Model Design & Prioritisation</h4>
+        <p>Synthesised all research into a full business model — services, revenue streams, partnerships, customer segments, and cost structure. Applied a priority matrix [1/2/3] to guide the MVP build vs future phases.</p>
+        <div class="step-tags">
+          <span class="step-tag">Business Model Canvas</span>
+          <span class="step-tag">Prioritisation</span>
+          <span class="step-tag">Product Strategy</span>
+          <span class="step-tag">Go-to-market</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step reveal">
+      <div class="step-left">
+        <div class="step-num">06</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <h4>Deliverable Packaging & Client Handoff</h4>
+        <p>Packaged findings into four professional reports with executive summaries, data visualisations, and clear recommendations. Structured outputs for both strategic decision-making and operational execution.</p>
+        <div class="step-tags">
+          <span class="step-tag">Storytelling</span>
+          <span class="step-tag">Report Writing</span>
+          <span class="step-tag">Presentation</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="bg-paper">
+  <div class="section-label">05 · Skills Demonstrated</div>
+  <h2 class="section-title">What this project shows</h2>
+  <div class="skills-grid">
+    <div class="skill-tile reveal">
+      <span class="skill-icon">📊</span>
+      <h4>Market Research</h4>
+      <p>Structured research across 94 companies, government sources, and industry databases.</p>
+    </div>
+    <div class="skill-tile reveal">
+      <span class="skill-icon">🔍</span>
+      <h4>Competitive Analysis</h4>
+      <p>Systematic benchmarking of services, pricing, business models, and market positioning.</p>
+    </div>
+    <div class="skill-tile reveal">
+      <span class="skill-icon">📐</span>
+      <h4>Business Strategy</h4>
+      <p>Translated research into an actionable, phased business model with clear prioritisation.</p>
+    </div>
+    <div class="skill-tile reveal">
+      <span class="skill-icon">⚖️</span>
+      <h4>Regulatory Analysis</h4>
+      <p>Mapped complex legal frameworks and translated them into strategic recommendations.</p>
+    </div>
+    <div class="skill-tile reveal">
+      <span class="skill-icon">📈</span>
+      <h4>Data Analysis</h4>
+      <p>Identified survival patterns and market signals from startup lifecycle datasets.</p>
+    </div>
+    <div class="skill-tile reveal">
+      <span class="skill-icon">🗂️</span>
+      <h4>Product Thinking</h4>
+      <p>Designed a prioritised service roadmap using impact vs complexity tradeoffs.</p>
+    </div>
+    <div class="skill-tile reveal">
+      <span class="skill-icon">🤝</span>
+      <h4>Consulting Delivery</h4>
+      <p>Managed a structured engagement from scoping to final deliverable under a consulting org.</p>
+    </div>
+    <div class="skill-tile reveal">
+      <span class="skill-icon">✍️</span>
+      <h4>Structured Communication</h4>
+      <p>Packaged dense research into clear, professional reports for a non-technical client.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <p style="color:#f5f2ec; font-size:0.9rem; margin-bottom:0.3rem;">SaveIN.Life · Market Entry Strategy</p>
+    <p>Delivered via <a href="https://180dc.org" target="_blank" rel="noopener">180 Degrees Consulting, NSUT</a> · Confidential — insights shared, data redacted</p>
+  </div>
+  <p class="footer-note">Portfolio Case Study</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav active state on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + entry.target.id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.35, rootMargin: '-80px 0px -50% 0px' });
+
+  sections.forEach(sec => navObserver.observe(sec));
+
+  // Smooth scroll offset for fixed nav
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - 72;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
