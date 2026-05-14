@@ -4,9 +4,7 @@ A comprehensive case study on market entry strategy for a healthcare technology 
 
 ## Live Demo
 
-**[View the case study →](https://github.com/Saad01042005)**
-
-(Replace `yourusername` with your actual GitHub username after deployment)
+**[View the case study →](https://saad01042005.github.io/savein-medical-tourism/)**
 
 ## What This Is
 
