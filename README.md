@@ -4,7 +4,7 @@ A comprehensive case study on market entry strategy for a healthcare technology 
 
 ## Live Demo
 
-**[View the case study →](https://yourusername.github.io/savein-medical-tourism)**
+**[View the case study →](https://github.com/Saad01042005)**
 
 (Replace `yourusername` with your actual GitHub username after deployment)
 
@@ -76,13 +76,6 @@ The research deliverables included 4 detailed reports (Competitor Analysis, Lega
 ## Confidentiality
 
 This portfolio case study shares strategic insights and frameworks, but proprietary data and client-specific information have been redacted in accordance with confidentiality agreements.
-
-## Next Steps
-
-1. **Customize the live link:** Replace `yourusername` in the demo link above with your actual GitHub username
-2. **Add your contact info:** Update footer email in `index.html` line 970
-3. **Deploy to GitHub Pages:** Go to Settings → Pages → Enable for main branch (root folder)
-4. **Share:** Pin this repo on your profile and share the live link
 
 ---
 
